@@ -1,0 +1,21 @@
+package hamgraphs.spring.data.neo4j.repositories;
+
+import java.util.Collection;
+
+import hamgraphs.spring.data.neo4j.domain.Relationship;
+import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.neo4j.repository.GraphRepository;
+
+/**
+ * @author Joe Petrich
+ */
+@RepositoryRestResource(collectionResourceRel = "relationships", path = "relationships")
+public interface RelationshipRepository extends GraphRepository<Relationship> {
+
+      @Query("MATCH (a1:Activity), (a2:Activity) " +
+      "WHERE a1.title = {0} AND a2.title = {1}" +
+      "CREATE (a1)-[:RELATED_TO]->(a2)")
+      void addRelationship(String a1Title, String a2Title);
+}
