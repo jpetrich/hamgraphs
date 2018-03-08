@@ -52,4 +52,9 @@ public class ActivityService {
 		Collection<Activity> result = ActivityRepository.graph(limit);
 		return toD3Format(result);
 	}
+
+	@Transactional(readOnly = false)
+	public void addRelationship(String a1Title, String a2Title) {
+		ActivityRepository.addRelationship(a1Title, a2Title);
+	}
 }
