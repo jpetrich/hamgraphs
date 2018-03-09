@@ -1,6 +1,8 @@
 package hamgraphs.spring.data.neo4j.services;
 
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import hamgraphs.spring.data.neo4j.domain.Activity;
 import hamgraphs.spring.data.neo4j.domain.User;
@@ -15,28 +17,20 @@ public class ActivityService {
 	@Autowired ActivityRepository ActivityRepository;
 
 	private Map<String, Object> toD3Format(Collection<Activity> activities) {
-		List<Map<String, Object>> nodes = new ArrayList<>();
+	    List<Activity> activitiesList = activities.stream().collect(Collectors.toList());
+	    HashSet<Activity> visited = new HashSet<>(activities.size());
+		List<Map<String, Object>> nodes = activitiesList.stream().map((Activity a) -> map("title", a.getTitle(), "label", "activity")).collect(Collectors.toList());
 		List<Map<String, Object>> rels = new ArrayList<>();
-		int i = 0;
-		Iterator<Activity> result = activities.iterator();
-		while (result.hasNext()) {
-			System.out.println("in hasNext()");
-
-			Activity activity = result.next();
-			nodes.add(map("title", activity.getTitle(), "label", "activity"));
-			int target = i;
-			i++;
-			for (Activity a2 : activity.getRelatedActivities()) {
-				System.out.println("looping");
-				Map<String, Object> otherActivity = map("title", a2.getTitle(), "label", "activity");
-				int source = nodes.indexOf(otherActivity);
-				if (source == -1) {
-					nodes.add(otherActivity);
-					source = i++;
-				}
-				rels.add(map("source", source, "target", target));
-			}
-		}
+		activitiesList.stream()
+            .filter((Activity a) -> !visited.contains(a))
+            .forEach((Activity activity) -> {
+                visited.add(activity);
+                int source = activitiesList.indexOf(activity);
+                activity.getRelatedActivities().stream()
+                        .filter((Activity b) -> !visited.contains(b))
+                        .forEach((Activity b) -> rels.add(map("source", source, "target", activitiesList.indexOf(b))));
+                }
+            );
 		return map("nodes", nodes, "links", rels);
 	}
 
