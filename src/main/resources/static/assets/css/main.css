@@ -16,7 +16,7 @@ body {
   position: relative;
   flex: 1;
   height: 100%;
-  overflow: scroll;
+  overflow: hidden;
   border-left: 1px dashed grey;
   background-color: #eee;
 }
