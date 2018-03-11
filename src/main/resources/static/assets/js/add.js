@@ -27,6 +27,13 @@ $(function () {
       related.forEach(function(relatedActivity) {
         $.get('/addRelationship?a1Title='+title+'&a2Title='+relatedActivity);
       });
+      $('#title').val('');
+      $('#description').val('');
+      $('#related option').prop('selected',false);
+    })
+    .catch(function(error) {
+      console.log(error);
+      alert('There was an error adding the activity. Please try again. If this persists, contact the site admin.');
     });
     return false;
   });
