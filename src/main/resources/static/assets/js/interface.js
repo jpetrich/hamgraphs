@@ -9,24 +9,31 @@ $(function () {
 
   $('#reset').click(function() {
     GRAPH.resetPosition();
+    return false;
   });
   $('#zoom-in').click(function() {
     GRAPH.zoom(1);
+    return false;
   });
   $('#zoom-out').click(function() {
     GRAPH.zoom(-1);
+    return false;
   });
   $('#move-left').click(function() {
     GRAPH.move('x',1);
+    return false;
   });
   $('#move-right').click(function() {
     GRAPH.move('x',-1);
+    return false;
   });
   $('#move-up').click(function() {
     GRAPH.move('y',1);
+    return false;
   });
   $('#move-down').click(function() {
     GRAPH.move('y',-1);
+    return false;
   });
   
   // highlight the selected node

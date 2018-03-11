@@ -23,11 +23,30 @@ body {
 #graph-svg {
   transition: transform 0.5s;
 }
-.node { stroke: #222; stroke-width: 2px; }
-.node.activity { fill: #BBB; }
-.node.selected { stroke: red }
-.link { stroke: #999; stroke-opacity: .8; stroke-width: 2px; }
-.graph-label { font-family: monospace; font-size: 16px; }
+
+.node {
+  stroke: #222;
+  stroke-width: 2px;
+}
+
+.node.activity {
+  fill: #BBB;
+}
+
+.node.selected {
+  stroke: red;
+}
+
+.link {
+	stroke: #999;
+  stroke-opacity: .8;
+  stroke-width: 2px;
+}
+
+.graph-label {
+  font-family: monospace;
+  font-size: 16px;
+}
 
 #map-controls {
   position: absolute;
@@ -46,6 +65,13 @@ body {
   text-align: center;
   background-color: #ddd;
   border-radius: 5px;
+  /* from https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
 #move-up {
@@ -103,6 +129,7 @@ body {
 
 .search-result {
   margin: 5px 0;
+  cursor: pointer;
 }
 
 .search-result.selected {
