@@ -1,14 +1,14 @@
 function Graph(width,height) {
   this.width = width;
   this.height = height;
-  this.currentCenter = { x: 0, y: 0};
+  this.currentCenter = { x: width/2 - 4501, y: height/2 - 4501};
   this.currentScale = 1;
   //this.force = d3.layout.force().charge(-200).size([width, height]);
 
   this.svg = d3.select("#graph")
                .append("svg")
                .attr("id","graph-svg")
-               .attr("width", "100%").attr("height", "100%")
+               .attr("width", "9002px").attr("height", "9002px")
                .attr("pointer-events", "all");
 }
 
@@ -26,6 +26,10 @@ Graph.prototype.centerOnNode = function(node) {
     var ny = Math.round(Number(node.y));
     x = gcx - nx;
     y = gcy - ny;
+  }
+  else {
+    this.resetPosition();
+    return;
   }
   this.currentCenter.x = x;
   this.currentCenter.y = y;
@@ -48,8 +52,8 @@ Graph.prototype.zoom = function(direction) {
 }
 
 Graph.prototype.resetPosition = function() {
-  this.currentCenter.x = 0;
-  this.currentCenter.y = 0;
+  this.currentCenter.x = this.width/2 - 4501;
+  this.currentCenter.y = this.height/2 - 4501;
   this.currentScale = 1;
   this.updatePosition();
 }
@@ -67,6 +71,7 @@ Graph.prototype.render = function() {
     return;
   }
   this.renderInProgress = true;
+  this.updatePosition();
   var svg = this.svg;
   var graph = this.data;
   var linkDistance = this.linkDistance || graph.nodes.reduce(function(acc,node) {
@@ -78,7 +83,7 @@ Graph.prototype.render = function() {
                                         .nodes(graph.nodes)
                                         .force('charge',d3.forceManyBody(-200))
                                         .force('collision',d3.forceCollide(maxRadius + 20))
-                                        .force('center',d3.forceCenter((this.width/2),(this.height/2)))
+                                        .force('center',d3.forceCenter(4501,4501))
                                         .force('links',d3.forceLink(graph.links).distance(linkDistance));
 
   if(!this.simulation) {
