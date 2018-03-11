@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+}
+nav {
+  margin: 10px;
+}
+form > div {
+  margin: 10px;
+}
+#related {
+  width: 200px;
+}
