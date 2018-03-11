@@ -73,9 +73,11 @@ Graph.prototype.render = function() {
     return Math.max(acc,node.title.length*20);
   }, 120);
   this.linkDistance = linkDistance;
+  var maxRadius = linkDistance*7/20;
   var simulation = this.simulation || d3.forceSimulation()
                                         .nodes(graph.nodes)
                                         .force('charge',d3.forceManyBody(-200))
+                                        .force('collision',d3.forceCollide(maxRadius + 20))
                                         .force('center',d3.forceCenter((this.width/2),(this.height/2)))
                                         .force('links',d3.forceLink(graph.links).distance(linkDistance));
 
@@ -97,7 +99,8 @@ Graph.prototype.render = function() {
                 .attr("class", function (d) { return "node "+d.label })
                 .attr("id", function (d) { return 'hamgraph_'+d.title.replace(/ /g,'_') })
                 .attr("data-text", function (d) { return d.title })
-                .attr("r", function(d) { return d.title.length*7 });
+                //.attr("r", function(d) { return (d.title.length < 6) ? d.title.length * 10 : d.title.length*7 });
+                .attr("r", function(d) { return maxRadius});
 
   node.on('click',function(e) {
     self.centerOnNode(e);

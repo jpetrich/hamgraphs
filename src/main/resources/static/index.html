@@ -4,16 +4,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
   <title>Neo4j HamGraphs</title>
-  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/graph.css">
+  <link rel="stylesheet" href="/assets/css/nav.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
-  <script type="text/javascript" src="/assets/js/interface.js"></script>
   <script type="text/javascript" src="/assets/js/graph.js"></script>
+  <script type="text/javascript" src="/assets/js/interface.js"></script>
 </head>
 
 <body>
 
 <div id="interface">
+  <section>
+    <nav>
+      <span>
+        <a href="/" class="active">Graph</a>
+      </span>
+      <span>
+        <a href="/add.html">Add Activity</a>
+      </span>
+    </nav>
+  </section>
   <section>
     <div id="search-panel">
       <input id="search" type="text" value="Ham Radio" />
@@ -30,7 +41,7 @@
       </div>
     </div>
   </section>
-  <section>
+  <section style="display:none" >
     <div id="interface-section-header">Details:</div>
     <div id="result-details">
       <div id="detail-title"></div>

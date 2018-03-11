@@ -1,0 +1,8 @@
+nav {
+  flex-flow: row nowrap;
+  margin-bottom: 5px;
+}
+
+nav > span > a.active {
+  font-weight: bold;
+}
