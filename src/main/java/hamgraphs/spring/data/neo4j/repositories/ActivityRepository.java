@@ -18,7 +18,9 @@ public interface ActivityRepository extends PagingAndSortingRepository<Activity,
 
 	Collection<Activity> findByTitleLike(@Param("title") String title);
 
-	@Query("MATCH (m:Activity)<-[r:RELATED_TO]-(a:Activity) RETURN m,r,a LIMIT {limit}")
+	@Query("MATCH (m:Activity)<-[r]-(b) " +
+
+            "RETURN m,r,b LIMIT {limit}")
 	Collection<Activity> graph(@Param("limit") int limit);
 
 
@@ -26,4 +28,13 @@ public interface ActivityRepository extends PagingAndSortingRepository<Activity,
   "WHERE a1.title = {0} AND a2.title = {1}" +
   "CREATE (a1)-[:RELATED_TO]->(a2)")
   void addRelationship(String a1Title, String a2Title);
+
+//  @Query("MATCH (user:User), (activity:Activity) " +
+//  "WHERE user.callsign = {0} AND activity.title = {2}" +
+//  "CREATE (user)-[:PARTICIPATES_IN]->(activity)")
+
+    @Query("MERGE (u:User {callsign: {0}}) " +
+            "MERGE (a:Activity {title: {1}}) " +
+            "CREATE (u)-[:PARTICIPATES_IN]->(a)")
+  void addParticipant(String callsign, String activityTitle);
 }

@@ -18,8 +18,14 @@ public class ActivityService {
 
 	private Map<String, Object> toD3Format(Collection<Activity> activities) {
 	    List<Activity> activitiesList = activities.stream().collect(Collectors.toList());
+	    Integer minUsers = Math.max(1, activities.stream().map((Activity a) -> a.getPartipantsCount()).reduce(Integer.MAX_VALUE,(Integer a, Integer b) -> Math.min(a, b)));
 	    HashSet<Activity> visited = new HashSet<>(activities.size());
-		List<Map<String, Object>> nodes = activitiesList.stream().map((Activity a) -> map("title", a.getTitle(), "label", "activity")).collect(Collectors.toList());
+		List<Map<String, Object>> nodes = activitiesList.stream().map((Activity a) -> {
+			Map<String, Object> jsonMap = map("title", a.getTitle(), "label", "activity");
+			jsonMap.put("relativeUserCount", Math.max(1, a.getPartipantsCount()/minUsers));
+//			jsonMap.put("users", a.getParticipants());
+			return jsonMap;
+		}).collect(Collectors.toList());
 		List<Map<String, Object>> rels = new ArrayList<>();
 		activitiesList.stream()
             .filter((Activity a) -> !visited.contains(a))
@@ -51,4 +57,10 @@ public class ActivityService {
 	public void addRelationship(String a1Title, String a2Title) {
 		ActivityRepository.addRelationship(a1Title, a2Title);
 	}
+
+	@Transactional(readOnly = false)
+	public void addParticipant(String callsign, String activityTitle) {
+		ActivityRepository.addParticipant(callsign, activityTitle);
+	}
+
 }
