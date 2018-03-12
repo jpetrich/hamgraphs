@@ -105,7 +105,7 @@ Graph.prototype.render = function() {
                 .attr("id", function (d) { return 'hamgraph_'+d.title.replace(/ /g,'_') })
                 .attr("data-text", function (d) { return d.title })
                 //.attr("r", function(d) { return (d.title.length < 6) ? d.title.length * 10 : d.title.length*7 });
-                .attr("r", function(d) { return maxRadius});
+                .attr("r", function(d) { return maxRadius + (d.relativeUserCount - 1)*10});
 
   node.on('click',function(e) {
     self.centerOnNode(e);

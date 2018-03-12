@@ -4,8 +4,11 @@ $(function () {
       if (!data || !data._embedded || !data._embedded.activities) return;
       data = data["_embedded"].activities;
       $related = $('#related');
+      $participations = $('#participations');
       data.forEach(function(activity) {
-        $related.append('<option id="'+activity.title+'">'+activity.title+'</option>');
+        $option = $('<option></option>').attr('id',activity.title).text(activity.title);
+        $related.append($option);
+        $participations.append($option.clone());
       });
   });
 
@@ -25,7 +28,7 @@ $(function () {
     })
     .then(function() {
       related.forEach(function(relatedActivity) {
-        $.get('/addRelationship?a1Title='+title+'&a2Title='+relatedActivity);
+        $.get('/addRelationship?a1Title='+encodeURIComponent(title)+'&a2Title='+encodeURIComponent(relatedActivity));
       });
       $('#title').val('');
       $('#description').val('');
@@ -35,6 +38,20 @@ $(function () {
       console.log(error);
       alert('There was an error adding the activity. Please try again. If this persists, contact the site admin.');
     });
+    return false;
+  });
+  $('#participation-form').submit(function() {
+    var callsign = $('#callsign').val();
+    if(!callsign) {
+      alert('Must specify callsign');
+      return false;
+    }
+    var participations = $('#participations').val();
+    participations.forEach(function(activity) {
+      $.get('/addParticipant?callsign='+encodeURIComponent(callsign)+'&activityTitle='+encodeURIComponent(activity));
+    });
+    $('#callsign').val('');
+    $('#participations option').prop('selected',false);
     return false;
   });
 

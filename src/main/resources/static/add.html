@@ -16,27 +16,49 @@
     <a href="/">Graph</a>
   </span>
   <span>
-    <a href="/add.html" class="active">Add Activity</a>
+    <a href="/add.html" class="active">Activities</a>
   </span>
 </nav>
-<form id="add-activity-form">
-  <div>
-    <label for="title">Title</label><br/>
-    <input id="title" type="text" />
-  </div>
-  <div>
-  <label for="description">Description</label><br/>
-  <input id="description" type="text" />
-  </div>
-  <div>
-  <label for="related">Related Activities</label><br/>
-  <select id="related" multiple="true">
-  </select>
-  </div>
-  <div>
-  <input type="submit" value="Add" />
-  </div>
-</form>
+<div id="form-wrapper">
+  <section>
+    <div class="header">Add an activity</div>
+    <form id="add-activity-form">
+      <div>
+        <label for="title">Title</label><br/>
+        <input id="title" type="text" />
+      </div>
+      <div>
+        <label for="description">Description</label><br/>
+        <input id="description" type="text" />
+      </div>
+      <div>
+        <label for="related">Related Activities</label><br/>
+        <select id="related" multiple="true">
+        </select>
+      </div>
+      <div>
+      <input type="submit" value="Add" />
+      </div>
+    </form>
+  </section>
+  <section>
+    <div class="header">Specify activities you participate in</div>
+    <form id="participation-form">
+      <div>
+        <label for="callsign">Callsign</label><br/>
+        <input id="callsign" type="text" />
+      </div>
+      <div>
+        <label for="participations">I participate in:</label><br/>
+        <select id="participations" multiple="true">
+        </select>
+      </div>
+      <div>
+      <input type="submit" value="Submit" />
+      </div>
+    </form>
+  </section>
+</div>
 
 </body>
 </html>

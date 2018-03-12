@@ -4,9 +4,25 @@ body {
 nav {
   margin: 10px;
 }
+
 form > div {
-  margin: 10px;
+  margin: 10px 0;
 }
-#related {
+
+#form-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+section {
+  margin: 10px;
+  max-width: 200px;
+}
+
+.header {
+  font-weight: bold;
+}
+
+select {
   width: 200px;
 }
