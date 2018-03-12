@@ -71,8 +71,8 @@ $(function () {
   function showDetails(title) {
     /* load additional details for the activity into the details pane */
     $.get("/activities/search/findByTitle?title=" + encodeURIComponent(title), function (data) {
-      if (!data ) return; //  || !data["_embedded"].movies) return;
-      var activity = data; // ["_embedded"].movies[0];
+      if (!data ) return;
+      var activity = data;
       $("#detail-title").text(activity.title);
       $("#detail-description").text(activity.description);
       /*
@@ -94,8 +94,10 @@ $(function () {
       if (!data) return;
       data = data["_embedded"].activities;
       data.forEach(function (activity) {
-        var template = '<div class="search-result"><div class="title">'+activity.title+'</div><div class="description">'+activity.description+'</div></div>';
-        $(template).appendTo(resultsContainer).click(function() { 
+        var title = $('<div class="title"></div>').text(activity.title);
+        var description = $('<div class="description"></div>').text(activity.description);
+        var result = $('<div class="search-result"></div>').append(title).append(description);
+        result.appendTo(resultsContainer).click(function() {
           var $this = $(this)
           if($this.hasClass('selected')) {
             $this.removeClass('selected');
