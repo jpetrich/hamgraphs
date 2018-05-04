@@ -6,6 +6,7 @@ import hamgraphs.spring.data.neo4j.services.ActivityService;
 import hamgraphs.spring.data.neo4j.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class ActivityController {
 		this.userService = userService;
 	}
 
-	@RequestMapping("/graph")
+	@RequestMapping(value = "/graph", method = RequestMethod.GET)
 	public Map<String, Object> graph(@RequestParam(value = "limit",required = false) Integer limit) {
 		return activityService.graph(limit == null ? 100 : limit);
 	}

@@ -6,7 +6,7 @@
     <groupId>xyz.petrich.radio</groupId>
     <artifactId>hamgraphs-spring</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>HamGraphs</name>
     <description>HamGraphs amateur radio mapping project using Spring Boot using Spring Data Neo4j</description>
