@@ -82,7 +82,7 @@ Graph.prototype.render = function() {
   var simulation = this.simulation || d3.forceSimulation()
                                         .nodes(graph.nodes)
                                         .force('charge',d3.forceManyBody(-200))
-                                        .force('collision',d3.forceCollide(maxRadius + 20))
+                                        .force('collision',d3.forceCollide(function(d) { return  20 + maxRadius + (d.relativeUserCount - 1)*10}))
                                         .force('center',d3.forceCenter(4501,4501))
                                         .force('links',d3.forceLink(graph.links).distance(linkDistance));
 
