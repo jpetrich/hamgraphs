@@ -1,0 +1,21 @@
+#ACTIVITIES
+Amateur Radio
+CW
+VHF
+UHF
+Contesting
+DIY
+
+#RELATIONSHIPS
+Amateur Radio,CW
+Amateur Radio,VHF
+Amateur Radio,UHF
+Amateur Radio,DIY
+Amateur Radio,Contesting
+Contesting,CW
+Contesting,VHF
+Contesting,UHF
+CW,VHF
+CW,UHF
+VHF,UHF
+DIY,CW
